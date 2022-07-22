@@ -29,7 +29,7 @@ class HivesPage extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               itemCount: state.hives.length,
               itemBuilder: (context, index) => HiveCard(state.hives[index]),
-              separatorBuilder: (context, index) => const SizedBox(height: 20),
+              separatorBuilder: (context, index) => const SizedBox(height: 25),
             );
           },
         ),
