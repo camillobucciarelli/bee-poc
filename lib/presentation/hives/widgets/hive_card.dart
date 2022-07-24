@@ -1,86 +1,81 @@
-import 'package:bee/presentation/hives/widgets/profile_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../domain/models/hive.dart';
+import '../../../theme/theme.dart';
+import 'hive_weight.dart';
 
-class HiveCard extends StatefulWidget {
+class HiveCard extends StatelessWidget {
+  static const _color = Colors.lightGreen;
   final Hive hive;
+  final double cardSize;
 
-  const HiveCard(this.hive, {Key? key}) : super(key: key);
+  const HiveCard(this.hive, {Key? key, required this.cardSize}) : super(key: key);
 
-  @override
-  State<HiveCard> createState() => _HiveCardState();
-}
-
-class _HiveCardState extends State<HiveCard> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Container(
-      height: 200,
-      width: double.infinity,
+      width: cardSize,
+      height: cardSize,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.amber.shade600.withOpacity(0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 10),
+        borderRadius: BorderRadius.circular(Dimens.radiusXS),
+        border: Border.all(
+          color: _color,
+          width: 2.0,
+        ),
+        color: Colors.black,
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(hive.imageUrl),
+          fit: BoxFit.fitWidth,
+          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _spacing(),
+          _name(context),
+          _spacing(),
+          HiveWeight(color: _color, hive: hive),
+          const Spacer(),
+          _dateAndExternalId(context),
+          _spacing(),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _spacing() => const SizedBox(height: Dimens.spacingXS);
+
+  Padding _name(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.spacingXS),
+      child: Text(
+        hive.name,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+        style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+      ),
+    );
+  }
+
+  Padding _dateAndExternalId(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.spacingXS),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            hive.measurementDate != null ? DateFormat('dd MMM').format(hive.measurementDate!) : '-',
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+          ),
+          Text(
+            hive.externalIdToShow,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
           ),
         ],
       ),
-      child: Stack(
-        children: [
-          _image(),
-          _name(),
-        ],
-      ),
     );
   }
-
-  Widget _image() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: ShaderMask(
-        shaderCallback: (rect) => LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: const [.4, 1.0],
-          colors: [
-            Colors.transparent,
-            Colors.black.withOpacity(0.9),
-          ],
-        ).createShader(rect),
-        blendMode: BlendMode.darken,
-        child: CachedNetworkImage(
-          imageUrl: widget.hive.mainImage,
-          width: double.infinity,
-          fit: BoxFit.fitWidth,
-        ),
-      ),
-    );
-  }
-
-  Widget _name() {
-    return Align(
-      alignment: Alignment.bottomRight,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Text(
-          widget.hive.name.toUpperCase(),
-          textAlign: TextAlign.right,
-          style: Theme
-              .of(context)
-              .textTheme
-              .headline5
-              ?.copyWith(color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
 }

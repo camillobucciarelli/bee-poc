@@ -1,4 +1,4 @@
-import 'package:bee/domain/models/hive.dart';
+import '../../domain/models/hive.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,13 +12,12 @@ class HivesRepositoryImpl extends HivesRepository {
   HivesRepositoryImpl(this._hivesDataSource);
 
   @override
-  Future<Either<dynamic, List<Hive>>> getHives(int honeyId) async {
+  Future<Either<dynamic, List<Hive>>> getHives(int apiaryId) async {
     try {
-      final entities = await _hivesDataSource.getHives(honeyId);
-      return right(entities.map(Hive.fromEntity).toList());
+      final response = await _hivesDataSource.getHives(apiaryId);
+      return right(response.results.map(Hive.fromEntity).toList());
     } catch (e) {
       return left(e);
     }
   }
-
 }

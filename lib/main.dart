@@ -1,11 +1,18 @@
-import 'package:bee/presentation/hives/hives_page.dart';
+import 'dart:async';
+
+
+import 'app_router.dart';
+import 'theme/theme.dart';
 import 'package:flutter/material.dart';
 
-import 'dependecy_injection.dart';
+import 'dependency_injection.dart';
 
 void main() {
-  initInjector();
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runZoned(() async {
+    await initInjector();
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: const HivesPage(),
+      theme: AppTheme.theme,
+      initialRoute: AppRouter.initialRoute,
+      onGenerateRoute: AppRouter.generateAppRoute,
     );
   }
 }

@@ -3,33 +3,28 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'hive_entity.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(createToJson: false, fieldRename: FieldRename.snake)
 class HiveEntity extends Equatable {
   final int id;
   final String name;
-  @JsonKey(name: 'main_image')
-  final String mainImage;
-  @JsonKey(name: 'queen_name')
-  final String queenName;
-  @JsonKey(name: 'queen_image')
-  final String queenImage;
+  final String imageUrl;
+  final String externalId;
 
   const HiveEntity(
     this.id,
     this.name,
-    this.mainImage,
-    this.queenName,
-    this.queenImage,
+    this.imageUrl,
+    this.externalId,
   );
 
-  factory HiveEntity.fromJson(Map<String, dynamic> json) => _$HiveEntityFromJson(json);
+  factory HiveEntity.fromJson(Map<String, dynamic> json) =>
+      _$HiveEntityFromJson(json);
 
   @override
   List<Object?> get props => [
         id,
         name,
-        mainImage,
-        queenName,
-        queenImage,
+        imageUrl,
+        externalId,
       ];
 }

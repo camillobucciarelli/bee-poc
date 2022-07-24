@@ -1,6 +1,5 @@
 part of 'hives_cubit.dart';
 
-@immutable
 abstract class HivesState extends Equatable {
   const HivesState();
 }
@@ -9,16 +8,14 @@ class HivesLoading extends HivesState {
   const HivesLoading();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class HivesFailure extends HivesState {
-  final String message;
-
-  const HivesFailure(this.message);
+  const HivesFailure();
 
   @override
-  List<Object?> get props => [message];
+  List<Object> get props => [];
 }
 
 class HivesSuccess extends HivesState {
@@ -27,5 +24,5 @@ class HivesSuccess extends HivesState {
   const HivesSuccess(this.hives);
 
   @override
-  List<Object?> get props => [hives];
+  List<Object> get props => [hives];
 }

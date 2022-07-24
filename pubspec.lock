@@ -272,6 +272,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_loggy:
+    dependency: "direct main"
+    description:
+      name: flutter_loggy
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  flutter_loggy_dio:
+    dependency: "direct main"
+    description:
+      name: flutter_loggy_dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -340,6 +354,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.4"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   io:
     dependency: transitive
     description:
@@ -382,6 +403,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  loggy:
+    dependency: "direct main"
+    description:
+      name: loggy
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1+1"
   matcher:
     dependency: transitive
     description:
@@ -550,6 +578,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  reactive_forms:
+    dependency: "direct main"
+    description:
+      name: reactive_forms
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "13.0.0"
   retrofit:
     dependency: "direct main"
     description:
